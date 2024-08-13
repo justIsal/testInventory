@@ -1,0 +1,71 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+:root {
+  --clr-border: rgba(238, 238, 238, 0.6);
+}
+
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+.bordrek {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  /* line-height: 1; */
+  background-position: 0 0, 0 0, 100% 0, 0 100%;
+  background-size: 1px 100%, 100% 1px, 1px 100%, 100% 1px;
+  background-repeat: no-repeat;
+  margin-bottom: 10px;
+  color: #fff;
+  border-radius: 0;
+
+  background-image: repeating-linear-gradient(
+      0deg,
+      var(--clr-border),
+      var(--clr-border) 30px,
+      transparent 30px,
+      transparent 36px
+    ),
+    repeating-linear-gradient(
+      100deg,
+      var(--clr-border),
+      var(--clr-border) 30px,
+      transparent 30px,
+      transparent 36px
+    ),
+    repeating-linear-gradient(
+      180deg,
+      var(--clr-border),
+      var(--clr-border) 30px,
+      transparent 30px,
+      transparent 36px
+    ),
+    repeating-linear-gradient(
+      270deg,
+      var(--clr-border),
+      var(--clr-border) 30px,
+      transparent 30px,
+      transparent 36px
+    );
+}
+.bordrek:hover p {
+  color: #000;
+}

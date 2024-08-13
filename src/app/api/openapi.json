@@ -1,0 +1,1040 @@
+{
+ "openapi": "3.0.3",
+ "info": {
+  "title": "Inventory API",
+  "description": "API for managing inventory",
+  "version": "1.0.0",
+  "contact": {
+   "name": "REID Team",
+   "url": "https://reidteam.web.id"
+  }
+ },
+ "servers": [
+  {
+   "url": "https://inventory.reidteam.web.id/api/v1.0.0"
+  }
+ ],
+ "paths": {
+  "/": {
+   "get": {
+    "tags": ["Inventory"],
+    "summary": "Get Information",
+    "operationId": "get kosong",
+    "responses": {
+     "200": {
+      "description": "OK"
+     }
+    }
+   }
+  },
+  "/hello": {
+   "get": {
+    "tags": ["Inventory"],
+    "summary": "Get Information",
+    "operationId": "get hello",
+    "responses": {
+     "200": {
+      "description": "OK"
+     }
+    }
+   }
+  },
+  "/users": {
+   "get": {
+    "tags": ["bunda-alya"],
+    "summary": "Get Users",
+    "operationId": "getusers",
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "404": {
+      "description": "Not Found"
+     }
+    }
+   },
+   "post": {
+    "tags": ["bunda-alya"],
+    "summary": "Add Users",
+    "operationId": "adduser",
+    "requestBody": {
+     "description": "Data yang diperlukan",
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object",
+        "properties": {
+         "nama": {
+          "type": "string"
+         },
+         "role": {
+          "type": "string",
+          "enum": ["Admin", "Pegawai"],
+          "description": "Enum: Admin, Pegawai"
+         },
+         "username": {
+          "type": "string"
+         },
+         "password": {
+          "type": "string"
+         },
+         "divisi": {
+          "type": "string",
+          "enum": ["Ketua", "Permintaan", "Pengadaan"],
+          "description": "Enum: Ketua, Permintaan, Pengadaan"
+         }
+        },
+        "required": ["nama", "role", "username", "password", "divisi"]
+       }
+      }
+     }
+    },
+    "responses": {
+     "201": {
+      "description": "Created"
+     },
+     "400": {
+      "description": "Bad Request"
+     },
+     "422": {
+      "description": "Unprocessable Entity"
+     }
+    }
+   }
+  },
+  "/users/{id}": {
+   "get": {
+    "tags": ["bunda-alya"],
+    "summary": "Get Users by ID",
+    "operationId": "getusersid",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      },
+      "description": "ID of the user"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "404": {
+      "description": "Not Found"
+     }
+    }
+   },
+   "put": {
+    "tags": ["bunda-alya"],
+    "summary": "Edit User by ID",
+    "operationId": "edituserbyid",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      },
+      "description": "ID of the user"
+     }
+    ],
+    "requestBody": {
+     "description": "Data yang diperlukan",
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object",
+        "properties": {
+         "nama": {
+          "type": "string"
+         },
+         "username": {
+          "type": "string"
+         },
+         "password": {
+          "type": "string",
+          "description": "Untuk authorisasi perubahan, dapat menggunakan password user atau masterkey"
+         },
+         "newPassword": {
+          "type": "string",
+          "description": "Jika ingin mengganti password lama"
+         },
+         "divisi": {
+          "type": "string"
+         }
+        },
+        "required": ["password"]
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "400": {
+      "description": "Bad Request"
+     },
+     "422": {
+      "description": "Unprocessable Entity"
+     }
+    }
+   },
+   "delete": {
+    "tags": ["bunda-alya"],
+    "summary": "Delete User by ID",
+    "operationId": "deleteuserbyid",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      },
+      "description": "ID of the user"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "404": {
+      "description": "Not Found"
+     }
+    }
+   }
+  },
+  "/barang": {
+   "get": {
+    "tags": ["bunda-alya"],
+    "summary": "Get Barang",
+    "operationId": "getbarang",
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "404": {
+      "description": "Not Found"
+     }
+    }
+   },
+   "post": {
+    "tags": ["bunda-alya"],
+    "summary": "Add Barang",
+    "operationId": "addbarang",
+    "requestBody": {
+     "description": "Data yang diperlukan",
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object",
+        "properties": {
+         "nama": {
+          "type": "string"
+         },
+         "merek": {
+          "type": "string"
+         },
+         "tipe": {
+          "type": "string"
+         },
+         "stok": {
+          "type": "number"
+         }
+        },
+        "required": ["nama", "merek", "tipe", "stok"]
+       }
+      }
+     }
+    },
+    "responses": {
+     "201": {
+      "description": "Created"
+     },
+     "400": {
+      "description": "Bad Request"
+     },
+     "422": {
+      "description": "Unprocessable Entity"
+     }
+    }
+   }
+  },
+  "/barang/{id}": {
+   "get": {
+    "tags": ["bunda-alya"],
+    "summary": "Get Barang by ID",
+    "operationId": "getbarangid",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      },
+      "description": "ID of the barang"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "404": {
+      "description": "Not Found"
+     }
+    }
+   },
+   "put": {
+    "tags": ["bunda-alya"],
+    "summary": "Edit Barang by ID",
+    "operationId": "editbarangbyid",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      },
+      "description": "ID of the barang"
+     }
+    ],
+    "requestBody": {
+     "description": "Data yang diperlukan",
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object",
+        "properties": {
+         "nama": {
+          "type": "string"
+         },
+         "merek": {
+          "type": "string"
+         },
+         "tipe": {
+          "type": "string"
+         },
+         "stok": {
+          "type": "number"
+         }
+        }
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "400": {
+      "description": "Bad Request"
+     },
+     "422": {
+      "description": "Unprocessable Entity"
+     }
+    }
+   },
+   "delete": {
+    "tags": ["bunda-alya"],
+    "summary": "Delete Barang by ID",
+    "operationId": "deletebarangbyid",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      },
+      "description": "ID of the barang"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "404": {
+      "description": "Not Found"
+     }
+    }
+   }
+  },
+  "/permintaan": {
+   "get": {
+    "tags": ["bunda-alya"],
+    "summary": "Get Permintaan",
+    "operationId": "getpermintaan",
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "404": {
+      "description": "Not Found"
+     }
+    }
+   },
+   "post": {
+    "tags": ["bunda-alya"],
+    "summary": "Add Permintaan",
+    "operationId": "addpermintaan",
+    "requestBody": {
+     "description": "Data yang diperlukan",
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object",
+        "properties": {
+         "id-barang": {
+          "type": "string"
+         },
+         "id-users": {
+          "type": "string"
+         },
+         "keterangan": {
+          "type": "string"
+         },
+         "harga": {
+          "type": "number"
+         },
+         "jumlah": {
+          "type": "number"
+         }
+        },
+        "required": ["id-barang", "id-users", "keterangan", "harga", "jumlah"]
+       }
+      }
+     }
+    },
+    "responses": {
+     "201": {
+      "description": "Created"
+     },
+     "400": {
+      "description": "Bad Request"
+     },
+     "422": {
+      "description": "Unprocessable Entity"
+     }
+    }
+   }
+  },
+  "/permintaan/{id}": {
+   "get": {
+    "tags": ["bunda-alya"],
+    "summary": "Get Permintaan by ID",
+    "operationId": "getpermintaanid",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      },
+      "description": "ID of the permintaan"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "404": {
+      "description": "Not Found"
+     }
+    }
+   },
+   "put": {
+    "tags": ["bunda-alya"],
+    "summary": "Edit Permintaan by ID",
+    "operationId": "editpermintaanbyid",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      },
+      "description": "ID of the permintaan"
+     }
+    ],
+    "requestBody": {
+     "description": "Data yang diperlukan",
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object",
+        "properties": {
+         "id-barang": {
+          "type": "string"
+         },
+         "id-users": {
+          "type": "string"
+         },
+         "keterangan": {
+          "type": "string"
+         },
+         "harga": {
+          "type": "number"
+         },
+         "jumlah": {
+          "type": "number"
+         },
+         "validasi": {
+          "type": "string"
+         }
+        }
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "400": {
+      "description": "Bad Request"
+     },
+     "422": {
+      "description": "Unprocessable Entity"
+     }
+    }
+   },
+   "delete": {
+    "tags": ["bunda-alya"],
+    "summary": "Delete Permintaan by ID",
+    "operationId": "deletepermintaanbyid",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      },
+      "description": "ID of the permintaan"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "404": {
+      "description": "Not Found"
+     }
+    }
+   }
+  },
+  "/permintaan/{id}/validasi": {
+   "put": {
+    "tags": ["bunda-alya"],
+    "summary": "Edit Permintaan by ID",
+    "operationId": "editpermintaanbyid",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      },
+      "description": "ID of the permintaan"
+     }
+    ],
+    "requestBody": {
+     "description": "Data yang diperlukan",
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object",
+        "properties": {
+         "validasi": {
+          "type": "string",
+          "enum": ["Disetujui", "Ditolak"],
+          "description": "Enum: Disetujui, Ditolak"
+         }
+        },
+        "required": ["validasi"]
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "400": {
+      "description": "Bad Request"
+     },
+     "422": {
+      "description": "Unprocessable Entity"
+     }
+    }
+   }
+  },
+  "/pengadaan": {
+   "get": {
+    "tags": ["bunda-alya"],
+    "summary": "Get Pengadaan",
+    "operationId": "getpengadaan",
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "404": {
+      "description": "Not Found"
+     }
+    }
+   },
+   "post": {
+    "tags": ["bunda-alya"],
+    "summary": "Add Pengadaan",
+    "operationId": "addpengadaan",
+    "requestBody": {
+     "description": "Data yang diperlukan",
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object",
+        "properties": {
+         "id-barang": {
+          "type": "string",
+          "description": "id-barang atau \"Barang Baru\""
+         },
+         "id-users": {
+          "type": "string"
+         },
+         "keterangan": {
+          "type": "string"
+         },
+         "harga": {
+          "type": "number"
+         },
+         "jumlah": {
+          "type": "number"
+         },
+         "nama": {
+          "type": "string",
+          "description": "Required jika barang baru (id-barang = \"Barang Baru\")"
+         },
+         "merek": {
+          "type": "string",
+          "description": "Required jika barang baru (id-barang = \"Barang Baru\")"
+         },
+         "tipe": {
+          "type": "string",
+          "description": "Required jika barang baru (id-barang = \"Barang Baru\")"
+         }
+        },
+        "required": ["id-barang", "id-users", "keterangan", "harga", "jumlah"]
+       }
+      }
+     }
+    },
+    "responses": {
+     "201": {
+      "description": "Created"
+     },
+     "400": {
+      "description": "Bad Request"
+     },
+     "422": {
+      "description": "Unprocessable Entity"
+     }
+    }
+   }
+  },
+  "/pengadaan/{id}": {
+   "get": {
+    "tags": ["bunda-alya"],
+    "summary": "Get Pengadaan by ID",
+    "operationId": "getpengadaanid",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      },
+      "description": "ID of the pengadaan"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "404": {
+      "description": "Not Found"
+     }
+    }
+   },
+   "put": {
+    "tags": ["bunda-alya"],
+    "summary": "Edit Pengadaan by ID",
+    "operationId": "editpengadaanbyid",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      },
+      "description": "ID of the pengadaan"
+     }
+    ],
+    "requestBody": {
+     "description": "Data yang diperlukan",
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object",
+        "properties": {
+         "id-barang": {
+          "type": "string"
+         },
+         "id-users": {
+          "type": "string"
+         },
+         "keterangan": {
+          "type": "string"
+         },
+         "harga": {
+          "type": "number"
+         },
+         "jumlah": {
+          "type": "number"
+         },
+         "validasi": {
+          "type": "string"
+         }
+        }
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "400": {
+      "description": "Bad Request"
+     },
+     "422": {
+      "description": "Unprocessable Entity"
+     }
+    }
+   },
+   "delete": {
+    "tags": ["bunda-alya"],
+    "summary": "Delete Pengadaan by ID",
+    "operationId": "deletepengadaanbyid",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      },
+      "description": "ID of the pengadaan"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "404": {
+      "description": "Not Found"
+     }
+    }
+   }
+  },
+  "/pengadaan/{id}/validasi": {
+   "put": {
+    "tags": ["bunda-alya"],
+    "summary": "Edit Permintaan by ID",
+    "operationId": "editpengadaanbyid",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      },
+      "description": "ID of the pengadaan"
+     }
+    ],
+    "requestBody": {
+     "description": "Data yang diperlukan",
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object",
+        "properties": {
+         "validasi": {
+          "type": "string",
+          "enum": ["Disetujui", "Ditolak"],
+          "description": "Enum: Disetujui, Ditolak"
+         }
+        },
+        "required": ["validasi"]
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "400": {
+      "description": "Bad Request"
+     },
+     "422": {
+      "description": "Unprocessable Entity"
+     }
+    }
+   }
+  },
+  "/retur": {
+   "get": {
+    "tags": ["bunda-alya"],
+    "summary": "Get Retur",
+    "operationId": "getretur",
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "404": {
+      "description": "Not Found"
+     }
+    }
+   },
+   "post": {
+    "tags": ["bunda-alya"],
+    "summary": "Add Retur",
+    "operationId": "addretur",
+    "requestBody": {
+     "description": "Data yang diperlukan",
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object",
+        "properties": {
+         "id-barang": {
+          "type": "string"
+         },
+         "id-users": {
+          "type": "string"
+         },
+         "jenis-retur": {
+          "type": "string",
+          "enum": ["Pengadaan", "Permintaan"],
+          "description": "Enum: Pengadaan, Permintaan"
+         },
+         "keterangan": {
+          "type": "string"
+         },
+         "alasan": {
+          "type": "string"
+         },
+         "jumlah": {
+          "type": "number"
+         }
+        },
+        "required": [
+         "id-barang",
+         "jenis-retur",
+         "id-users",
+         "keterangan",
+         "alasan",
+         "jumlah"
+        ]
+       }
+      }
+     }
+    },
+    "responses": {
+     "201": {
+      "description": "Created"
+     },
+     "400": {
+      "description": "Bad Request"
+     },
+     "422": {
+      "description": "Unprocessable Entity"
+     }
+    }
+   }
+  },
+  "/retur/{id}": {
+   "get": {
+    "tags": ["bunda-alya"],
+    "summary": "Get Retur by ID",
+    "operationId": "getreturid",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      },
+      "description": "ID of the retur"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "404": {
+      "description": "Not Found"
+     }
+    }
+   },
+   "put": {
+    "tags": ["bunda-alya"],
+    "summary": "Edit Retur by ID",
+    "operationId": "editreturbyid",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      },
+      "description": "ID of the retur"
+     }
+    ],
+    "requestBody": {
+     "description": "Data yang diperlukan",
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object",
+        "properties": {
+         "id-barang": {
+          "type": "string"
+         },
+         "id-users": {
+          "type": "string"
+         },
+         "keterangan": {
+          "type": "string"
+         },
+         "alasan": {
+          "type": "string"
+         },
+         "jumlah": {
+          "type": "number"
+         },
+         "validasi": {
+          "type": "string"
+         }
+        }
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "400": {
+      "description": "Bad Request"
+     },
+     "422": {
+      "description": "Unprocessable Entity"
+     }
+    }
+   },
+   "delete": {
+    "tags": ["bunda-alya"],
+    "summary": "Delete Retur by ID",
+    "operationId": "deletereturbyid",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      },
+      "description": "ID of the retur"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "404": {
+      "description": "Not Found"
+     }
+    }
+   }
+  },
+  "/log": {
+   "get": {
+    "tags": ["bunda-alya"],
+    "summary": "Get Log",
+    "operationId": "getlog",
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "404": {
+      "description": "Not Found"
+     }
+    }
+   }
+  },
+  "/log/{id}": {
+   "get": {
+    "tags": ["bunda-alya"],
+    "summary": "Get Log by ID",
+    "operationId": "getlogid",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      },
+      "description": "ID of the log"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "404": {
+      "description": "Not Found"
+     }
+    }
+   }
+  }
+ }
+}

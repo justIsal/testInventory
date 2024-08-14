@@ -16,7 +16,7 @@ const columns = [
     displayName: 'Total',
   },
 ];
-const CSVDownloadButton = ({ data, fileName, title }) => {
+const CSVDownloadButton = ({ data, fileName, title, columns }) => {
   //   const datas = data.map((item, index) => ({
   //     name: item.name,
   //     waktuPesan: new Date(),
@@ -29,11 +29,7 @@ const CSVDownloadButton = ({ data, fileName, title }) => {
       filename={fileName}
       separator=";"
       columns={columns}
-      datas={[
-        ['Ahmed', 'Tomi', 'ah@smthing.co.com'],
-        ['Raed', 'Labes', 'rl@smthing.co.com'],
-        ['Yezzi', 'Min l3b', 'ymin@cocococo.com'],
-      ]}
+      datas={data}
       // disabled="true"
       className="btn-export"
     >

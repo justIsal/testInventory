@@ -93,36 +93,28 @@ export const getFifoByMerek = async () => {
       console.log(merek);
 
       const pengadaan = await Promise.all(
-        dataPengadaan.map(async (item) => {
-          const usersData = await retrieveDataById('users', item['id-users']);
-          const barangData = await retrieveDataById('barang', item['id-barang']);
-          delete usersData.role;
-          delete usersData['id-users'];
-          delete usersData.username;
-          delete usersData.password;
-          delete usersData.createdAt;
-          delete usersData.updatedAt;
-          if (usersData) {
-            item.users = usersData;
-          }
+        dataPengadaan
+          .filter((item) => item.validasi === 'Disetujui')
+          .map(async (item) => {
+            const usersData = await retrieveDataById('users', item['id-users']);
+            const barangData = await retrieveDataById('barang', item['id-barang']);
+            delete usersData.role;
+            delete usersData['id-users'];
+            delete usersData.username;
+            delete usersData.password;
+            delete usersData.createdAt;
+            delete usersData.updatedAt;
+            if (usersData) {
+              item.users = usersData;
+            }
 
-          delete barangData['id-barang'];
-          if (barangData) {
-            item.barang = barangData;
-          }
-          return item;
-        })
+            delete barangData['id-barang'];
+            if (barangData) {
+              item.barang = barangData;
+            }
+            return item;
+          })
       );
-
-      // const data = await Promise.all(
-      //   tipe.map(async (item) => {
-      //     const barangByType = pengadaan
-      //       .filter((data) => data.validasi == 'Disetujui')
-      //       .filter((data) => data.barang.tipe === item && data.stok > 0)
-      //       .sort((a, b) => a.createdAt - b.createdAt);
-      //     return { [item]: barangByType } || {};
-      //   })
-      // );
       const data = await Promise.all(
         tipe.map(async (item) => {
           const barangByType = merek

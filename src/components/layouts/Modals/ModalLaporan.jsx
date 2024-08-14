@@ -7,7 +7,7 @@ import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
 import CSVDownloadButton from '@/lib/CSVDownload/CSVDownloadButton';
 
-export function ModalLaporan({ open, handleOpen, data }) {
+export function ModalLaporan({ open, handleOpen, data, columns }) {
   const [dates, setDates] = useState([
     {
       startDate: new Date(),
@@ -40,6 +40,8 @@ export function ModalLaporan({ open, handleOpen, data }) {
               // data={getDate(data, state[0].startDate, state[0].endDate)}
               title={'export csv'}
               fileName={'exportcsv'}
+              data={data}
+              columns={columns}
             />
           </DialogFooter>
         </CardMain>

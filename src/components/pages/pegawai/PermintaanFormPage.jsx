@@ -59,7 +59,7 @@ export default function PermintaanFormPage() {
 
     setMerek('');
 
-    const filteredMerek = allBarang.filter((item) => item.tipe === e).map((item) => item.merek);
+    const filteredMerek = allBarang.filter((item) => item.tipe === e && item.stok > 0).map((item) => item.merek);
 
     setOptionMerek(filteredMerek);
   };

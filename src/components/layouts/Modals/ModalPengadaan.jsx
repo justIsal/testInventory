@@ -13,20 +13,40 @@ import ViewPengadaanPage from '../download/ViewPengadaanPage';
 import { handleGeneratePdf } from '@/lib/jsPDF/handleJsPdf';
 import { useSession } from 'next-auth/react';
 import { permintaanServices } from '@/services/permintaan';
-import { usePost } from '@/lib/axios/api';
+import { useFetch, usePost } from '@/lib/axios/api';
 import { pengadaanServices } from '@/services/pengadaan';
-import {useRouter} from "next/navigation";
+import { useRouter } from 'next/navigation';
+import { barangServices } from '@/services/barang';
 
 export function ModalPengadaan({ open, handleOpen, data, resetValue }) {
   const [value, setValue] = useState(data);
+  const [loading, isLoading] = useState(false);
   const dokumentRef = useRef(null);
+  const [kodeBarangBaru, setKodeBarangBaru] = useState('');
   const { data: session } = useSession();
-  const router = useRouter()
+  const router = useRouter();
   const {
     loading: loadingAllPengadaan,
     response: addPengadaanAllj,
     postData: addPengadaan,
   } = usePost('/postjl', pengadaanServices.addPengadaan);
+
+  useEffect(() => {
+    if (value['id-barang'] === 'Barang Baru') {
+      isLoading(true);
+      fetch('/api/v1.0.0/barang/kode')
+        .then((response) => response.json())
+        .then((data) => {
+          console.log('Generated Kode Barang:', data.kodeBarang);
+          setKodeBarangBaru(data.kodeBarang);
+          isLoading(false);
+        })
+        .catch((error) => {
+          console.error('Error fetching kode barang:', error);
+          isLoading(false);
+        });
+    }
+  }, [value]);
 
   const onHandlerSubmit = async () => {
     await addPengadaan({
@@ -49,7 +69,7 @@ export function ModalPengadaan({ open, handleOpen, data, resetValue }) {
     });
     alert('Successfuly');
     handleOpen();
-    router.push('/pegawai/pengadaan')
+    router.push('/pegawai/pengadaan');
   };
 
   const handleDownload = () => {
@@ -124,7 +144,33 @@ export function ModalPengadaan({ open, handleOpen, data, resetValue }) {
                 <tbody className="">
                   <tr>
                     <td className="p-2 text-black text-center">
-                      <Typography>{data['id-barang']}</Typography>
+                      {loading ? ( // Ganti loading dengan loadingKode sesuai state loading yang digunakan untuk fetch kode barang
+                        <div className="flex items-center justify-center">
+                          <svg
+                            className="animate-spin h-5 w-5 mr-3 text-blue-500"
+                            viewBox="0 0 24 24"
+                          >
+                            <circle
+                              className="opacity-25"
+                              cx="12"
+                              cy="12"
+                              r="10"
+                              stroke="currentColor"
+                              strokeWidth="4"
+                            ></circle>
+                            <path
+                              className="opacity-75"
+                              fill="currentColor"
+                              d="M4 12a8 8 0 018-8v8H4z"
+                            ></path>
+                          </svg>
+                          <Typography>Generate Kode...</Typography>
+                        </div>
+                      ) : value['id-barang'] === 'Barang Baru' && kodeBarangBaru ? (
+                        <Typography className="text-blue-500">{kodeBarangBaru}</Typography>
+                      ) : (
+                        <Typography>{data['kode-barang']}</Typography>
+                      )}
                     </td>
                     <td className="p-2 text-black text-center">
                       <Typography>{data.nama}</Typography>

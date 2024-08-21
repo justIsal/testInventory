@@ -58,7 +58,7 @@ export default function PermintaanFormPage() {
     setTipe(e);
 
     setMerek('');
-
+    
     const filteredMerek = allBarang.filter((item) => item.tipe === e && item.stok > 0).map((item) => item.merek);
 
     setOptionMerek(filteredMerek);
@@ -159,9 +159,9 @@ export default function PermintaanFormPage() {
             <div className="flex justify-start items-start w-full gap-10">
               <div className="mb-1 flex flex-col gap-6 w-full">
                 <SelectForm
-                  label="Tipe Barang"
+                  label="Jenis Barang"
                   type="text"
-                  placeholder="Tipe Barang"
+                  placeholder="Jenis Barang"
                   value={tipe}
                   onChange={handleOnChangeTipe}
                   listOption={Array.isArray(allFifo.tipe) ? allFifo.tipe : []}
@@ -173,7 +173,7 @@ export default function PermintaanFormPage() {
                   type="text"
                   placeholder="Kode Barang"
                   onChange={(e) => setValue({ ...value, 'id-barang': e.target.value })}
-                  value={value['id-pengadaan']}
+                  value={value.barang?.['kode-barang']}
                   className={'bg-white'}
                   disabled={true}
                 />

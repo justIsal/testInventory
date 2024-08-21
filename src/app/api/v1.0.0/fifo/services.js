@@ -116,21 +116,25 @@ export const getFifoByMerek = async () => {
           })
       );
       const data = await Promise.all(
-        tipe.map(async (item) => {
-          const barangByType = merek
-            .map((mrk) => {
-              const filteredData = pengadaan
-                .filter(
-                  (data) => data.barang.tipe === item && data.barang.merek === mrk && data.stok > 0
-                )
-                .sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+        tipe
+          .map(async (item) => {
+            const barangByType = merek
+              .map((mrk) => {
+                const filteredData = pengadaan
+                  .filter(
+                    (data) =>
+                      data.barang.tipe === item && data.barang.merek === mrk && data.stok > 0
+                  )
+                  .sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
 
-              return filteredData.length > 0 ? { [mrk]: filteredData } : null;
-            })
-            .filter((result) => result !== null);
-
-          return { [item]: barangByType };
-        })
+                return filteredData.length > 0 ? { [mrk]: filteredData } : null;
+              })
+              .filter((result) => result !== null);
+            console.log('barangByType');
+            console.log(barangByType);
+            return barangByType.length > 0 ? { [item]: barangByType } : null;
+          })
+          .filter((result) => result !== null)
       );
 
       return { status: true, message: { tipe, data } };

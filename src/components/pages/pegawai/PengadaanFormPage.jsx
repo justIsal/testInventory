@@ -50,7 +50,7 @@ export default function PengdaanFormPage() {
   };
 
   const handleOnChangeTipe = (e) => {
-    if (e !== 'Tipe Baru') {
+    if (e !== 'Jenis Baru') {
       setTipe(e);
 
       setMerek('');
@@ -72,7 +72,7 @@ export default function PengdaanFormPage() {
         jumlah: value.jumlah,
         keterangan: value.keterangan,
       });
-      setTipe('Tipe Baru');
+      setTipe('Jenis Baru');
       setMerek('Merek Baru');
       setOptionMerek([]);
     }
@@ -98,7 +98,7 @@ export default function PengdaanFormPage() {
         'id-barang': 'Barang Baru',
         nama: '',
         merek: '',
-        tipe: tipe,
+        tipe: '',
         harga: value.harga,
         jumlah: value.jumlah,
         keterangan: value.keterangan,
@@ -118,7 +118,7 @@ export default function PengdaanFormPage() {
   // }, [tipe, merek]);
 
   useEffect(() => {
-    if (tipe && tipe !== 'Tipe Baru') {
+    if (tipe && tipe !== 'Jenis Baru') {
       const filteredMerek = allfetchAllBarang
         .filter((item) => item.tipe === tipe)
         .map((item) => item.merek);
@@ -154,25 +154,25 @@ export default function PengdaanFormPage() {
           <div className="flex justify-start items-start w-full gap-10 mb-2">
             <div className="mb-1 flex flex-col gap-6 w-full">
               <SelectForm
-                label="Tipe Barang"
+                label="Jenis Barang"
                 type="text"
-                placeholder="Tipe Barang"
+                placeholder="Jenis Barang"
                 value={tipe}
                 onChange={handleOnChangeTipe}
                 listOption={[
                   ...(Array.isArray(allfetchAllBarang)
                     ? [...new Set(allfetchAllBarang?.map((item) => `${item.tipe}`))]
                     : []),
-                  'Tipe Baru',
+                  'Jenis Baru',
                 ]}
                 className={'bg-white mt-1'}
               />
               <div className={`transition-all ease-in-out duration-300 `}>
-                {tipe === 'Tipe Baru' && (
+                {tipe === 'Jenis Baru' && (
                   <InputForm
-                    label="Tipe Baru"
+                    label="Jenis Baru"
                     type="text"
-                    placeholder="Tipe Barang"
+                    placeholder="Jenis Baru"
                     onChange={(e) => setValue({ ...value, tipe: e.target.value })}
                     value={value.tipe}
                     className={'bg-white'}
@@ -206,7 +206,7 @@ export default function PengdaanFormPage() {
               />
               {/* {merek === 'Barang Baru' && ( */}
               <div className={`transition-all ease-in-out duration-300 `}>
-                {(merek === 'Merek Baru' || tipe === 'Tipe Baru') && (
+                {(merek === 'Merek Baru' || tipe === 'Jenis Baru') && (
                   <InputForm
                     label="Merek Baru"
                     type="text"

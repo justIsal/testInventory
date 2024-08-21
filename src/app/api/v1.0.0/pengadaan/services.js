@@ -8,6 +8,10 @@ import {
 } from '@/services';
 
 import bcrypt from 'bcrypt';
+import { collection, doc, getDocs, getFirestore, updateDoc } from 'firebase/firestore';
+import app from '@/lib/firebase/init';
+
+const firestore = getFirestore(app);
 
 export const getPengadaan = async () => {
   console.log(`firebase: getPengadaan()`);
@@ -107,6 +111,16 @@ export const createPengadaan = async (body) => {
       });
       console.log(barangBaru['id-barang']);
       idBarangBaru = barangBaru['id-barang'];
+
+      const allDocsSnapshot = await getDocs(collection(firestore, 'barang'));
+      const itemCount = allDocsSnapshot.size;
+
+      const kodeBarang = `BR${itemCount.toString().padStart(3, '0')}G`;
+
+      const newDocRef = doc(firestore, 'barang', idBarangBaru);
+      await updateDoc(newDocRef, { 'kode-barang': kodeBarang });
+
+      barangBaru['kode-barang'] = kodeBarang;
     }
 
     const pengadaanData = await createData('pengadaan', {

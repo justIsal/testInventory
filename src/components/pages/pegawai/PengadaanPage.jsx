@@ -10,7 +10,7 @@ import {pengadaanServices} from "@/services/pengadaan";
 const TABLE_HEAD = [
  "",
  "Tanggal",
- "Resi",
+ "Kode Barang",
  "Barang",
  "Merek",
  "Tipe",

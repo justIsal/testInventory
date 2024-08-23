@@ -16,7 +16,7 @@ import {useRouter} from "next/navigation";
 const TABLE_HEAD = [
  "",
  "Tanggal",
- "Resi",
+ "Kode Barang",
  "Barang",
  "Merek",
  "Tipe",

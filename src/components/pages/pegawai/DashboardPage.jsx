@@ -16,7 +16,7 @@ import {usersServices} from "@/services/user";
 const TABLE_HEAD = [
  "",
  "Tanggal",
- "Resi",
+ "Kode Barang",
  "Barang",
  "Merek",
  "Tipe",

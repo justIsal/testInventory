@@ -14,7 +14,7 @@ export default function PermintaanPage() {
  const TABLE_HEAD = [
   "",
   "Tanggal",
-  "Resi",
+  "Kode Barang",
   "Barang",
   "Merek",
   "Tipe",

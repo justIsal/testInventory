@@ -9,7 +9,7 @@ import {useFetch} from "@/lib/axios/api";
 const TABLE_HEAD = [
  "",
  "Tanggal",
- "Resi",
+ "Kode Barang",
  "Barang",
  "Merek",
  "Tipe",

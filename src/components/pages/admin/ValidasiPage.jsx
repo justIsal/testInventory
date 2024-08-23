@@ -8,7 +8,7 @@ import TableValidasi from "@/components/layouts/Tables/TableValidasi";
 const TABLE_HEAD = [
  "",
  "Tanggal",
- "Resi",
+ "Kode Barang",
  "Barang",
  "Merek",
  "Tipe",

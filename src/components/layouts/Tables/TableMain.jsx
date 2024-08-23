@@ -94,7 +94,7 @@ export default function TableMain({ tableHead, tableRow }) {
                   </td>
                   <td className={classes}>
                     <Typography variant="small" color="blue-gray" className="font-normal">
-                      {item[`id-${activity}`]}
+                      {item?.barang['kode-barang']}
                     </Typography>
                   </td>
                   <td className={classes}>

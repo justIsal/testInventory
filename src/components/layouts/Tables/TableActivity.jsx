@@ -122,7 +122,7 @@ export default function TableActivity({tableHead, tableRow}) {
            variant="small"
            color="blue-gray"
            className="font-normal">
-           {item[`id-${activity}`]}
+           {item?.barang['kode-barang']}
           </Typography>
          </td>
          <td className={classes}>
